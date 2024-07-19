@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\State\StateController;
+use App\Http\Controllers\Categories\CategoriesController;
+use App\Http\Controllers\Supplier\SupplierController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +21,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::prefix('dashboard')->group(function() {
+    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/state', [StateController::class, 'index'])->name('state.index');
+    Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
+    Route::get('/categorie', [CategoriesController::class, 'index'])->name('categories.index');
+});
 require __DIR__.'/auth.php';

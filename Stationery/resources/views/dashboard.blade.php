@@ -3,18 +3,27 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    @yield('views')
+    @yield('modal')
 @stop
 
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop
+@section('footer')
+<footer class="main-footer">
+    <div class="row">
+        <div class="col-3 text-left">
+            <a href="">Terminos y condiciones</a>
+        </div>
+        <div class="col-6 text-center">
 
-@section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+            <a href=""></a><b>Stationery</b></a>
+        </div>
+        <div class="col-3 float-right text-right">
+            <a href="">Aviso de privacidad</a>
+        </div>
+    </div>
+</footer>
 @stop

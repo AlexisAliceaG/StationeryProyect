@@ -313,10 +313,33 @@ return [
         ['header' => 'Product settings'],
         [
             'text' => 'Products',
-            'url' => 'admin/pages',
+            'route' => 'product.index',
             'icon' => 'far fa-fw fa-file',
             'label' => 'In work',
             'label_color' => 'warning',
+        ],
+        [
+            'text' => 'Settings',
+            'icon' => 'fas fa-fw fa-cog',
+            'label' => 'In work',
+            'label_color' => 'warning',
+            'submenu' => [
+                [
+                    'text' => 'State',
+                    'route' => 'state.index',
+                    'icon' => 'fas fa-fw fa-toggle-off ',
+                ],
+                [
+                    'text' => 'Categories',
+                    'route' => 'categories.index',
+                    'icon' => 'fas fa-fw fa-tasks ',
+                ],
+                [
+                    'text' => 'Supplier',
+                    'route' => 'supplier.index',
+                    'icon' => 'fas fa-fw fa-archive',
+                ],
+            ]
         ],
     ],
 
