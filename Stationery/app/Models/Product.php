@@ -18,14 +18,14 @@ class Product extends Model
         'description',
         'price',
         'stock_quantity',
-        'category_id',
+        'categorie_id',
         'state_id',
         'supplier_id',
     ];
 
-    public function category()
+    public function Categorie()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Categorie::class);
     }
 
     public function state()

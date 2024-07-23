@@ -20,13 +20,22 @@ return new class extends Migration
             $table->decimal('stock_quantity', 15, 2)->default(0.0);
             $table->timestampTz('created_at');
             $table->timestampTz('updated_at');
-            $table->uuid('categorie_id');
-            $table->uuid('state_id');
-            $table->uuid('supplier_id');
+            $table->uuid('categorie_id')->nullable();
+            $table->uuid('state_id')->nullable();
+            $table->uuid('supplier_id')->nullable();
 
-            $table->foreign('categorie_id')->references('id')->on('categories');
-            $table->foreign('state_id')->references('id')->on('states');
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->foreign('categorie_id')
+                  ->references('id')
+                  ->on('categories')
+                  ->onDelete('set null');
+            $table->foreign('state_id')
+                  ->references('id')
+                  ->on('states')
+                  ->onDelete('set null');
+            $table->foreign('supplier_id')
+                  ->references('id')
+                  ->on('suppliers')
+                  ->onDelete('set null');
         });
     }
 

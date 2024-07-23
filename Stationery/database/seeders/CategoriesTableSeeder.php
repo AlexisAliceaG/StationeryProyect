@@ -23,10 +23,10 @@ class CategoriesTableSeeder extends Seeder
             ['name' => 'Toys'],
         ];
 
-        foreach ($categories as $category) {
+        foreach ($categories as $Categorie) {
             DB::table('categories')->insert([
                 'id' => (string) Str::uuid(),
-                'name' => $category['name'],
+                'name' => $Categorie['name'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
