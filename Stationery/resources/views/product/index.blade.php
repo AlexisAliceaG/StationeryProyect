@@ -24,6 +24,7 @@
     <div class="container card p-2">
       <div class="row">
         <div class="col-12">
+            @livewire('products.home', key('home' . time()))
         </div>
       </div>
     </div>

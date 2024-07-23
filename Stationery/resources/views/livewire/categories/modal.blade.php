@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <input type="text" wire:model.live="form.name"
-                                    class="form-control form-control-lg @error('form.name') is-invalid @enderror"
+                                    class="form-control form-control @error('form.name') is-invalid @enderror"
                                     placeholder="Agregue un nombre...">
                                 @error('form.name')
                                     <div class="invalid-feedback">{{ $message }}</div>

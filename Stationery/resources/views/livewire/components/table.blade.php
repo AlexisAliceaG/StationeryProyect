@@ -45,9 +45,9 @@
                         @endif
                     @endforeach
                     <td style="width: 150px;">
-                        <x-adminlte-button name="Edit" class="m-2 bg-info" icon="fas fa-edit"
+                        <x-adminlte-button name="Edit" class="m-2 bg-primary" icon="fas fa-edit"
                             wire:click="edit('{{ $row->id }}')" />
-                        <x-adminlte-button name="Delete" class="m-2 bg-danger" icon="fas fa-trash"
+                        <x-adminlte-button name="Delete" class="m-2 bg-primary" icon="fas fa-trash"
                             wire:click="delete('{{ $row->id }}')" />
                     </td>
                 </tr>

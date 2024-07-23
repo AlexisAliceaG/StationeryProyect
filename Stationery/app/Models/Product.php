@@ -9,10 +9,11 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $keyType = 'uuid';
+    protected $keyType = 'string';
     public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'image_url',
         'name',
         'description',

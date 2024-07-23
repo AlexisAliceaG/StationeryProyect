@@ -19,7 +19,7 @@
                             <div class="form-group col-12">
                                 <label for="inputName" class="form-label">Nombre del Provedor</label>
                                 <input type="text" wire:model.live="form.name"
-                                    class="form-control form-control-lg @error('form.name') is-invalid @enderror"
+                                    class="form-control form-control @error('form.name') is-invalid @enderror"
                                     placeholder="Agregue un nombre...">
                                 @error('form.name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -28,7 +28,7 @@
                             <div class="form-group col-12">
                                 <label for="inputName" class="form-label">Nombre del Administrador</label>
                                 <input type="text" wire:model.live="form.manager"
-                                    class="form-control form-control-lg @error('form.manager') is-invalid @enderror"
+                                    class="form-control form-control @error('form.manager') is-invalid @enderror"
                                     placeholder="Agregue un Administrador...">
                                 @error('form.manager')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -37,7 +37,7 @@
                             <div class="form-group col-12">
                                 <label for="inputName" class="form-label">Correo</label>
                                 <input type="text" wire:model.live="form.email"
-                                    class="form-control form-control-lg @error('form.email') is-invalid @enderror"
+                                    class="form-control form-control @error('form.email') is-invalid @enderror"
                                     placeholder="Agregue un Correo...">
                                 @error('form.email')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -46,7 +46,7 @@
                             <div class="form-group col-12">
                                 <label for="inputName" class="form-label">Telefono</label>
                                 <input type="text" wire:model.live="form.phone"
-                                    class="form-control form-control-lg @error('form.phone') is-invalid @enderror"
+                                    class="form-control form-control @error('form.phone') is-invalid @enderror"
                                     placeholder="Agregue un Telefono...">
                                 @error('form.phone')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -55,7 +55,7 @@
                             <div class="form-group col-12">
                                 <label for="inputName" class="form-label">Dirección</label>
                                 <input type="text" wire:model.live="form.address"
-                                    class="form-control form-control-lg @error('form.address') is-invalid @enderror"
+                                    class="form-control form-control @error('form.address') is-invalid @enderror"
                                     placeholder="Agregue un Dirección...">
                                 @error('form.address')
                                     <div class="invalid-feedback">{{ $message }}</div>
