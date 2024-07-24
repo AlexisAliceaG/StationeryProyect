@@ -36,7 +36,7 @@
                             </div>
                             <div class="form-group col-12">
                                 <label for="inputName" class="form-label">Correo</label>
-                                <input type="text" wire:model.live="form.email"
+                                <input type="email" wire:model.live="form.email"
                                     class="form-control form-control @error('form.email') is-invalid @enderror"
                                     placeholder="Agregue un Correo...">
                                 @error('form.email')
@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group col-12">
                                 <label for="inputName" class="form-label">Telefono</label>
-                                <input type="text" wire:model.live="form.phone"
+                                <input type="tel" wire:model.live="form.phone"
                                     class="form-control form-control @error('form.phone') is-invalid @enderror"
                                     placeholder="Agregue un Telefono...">
                                 @error('form.phone')
