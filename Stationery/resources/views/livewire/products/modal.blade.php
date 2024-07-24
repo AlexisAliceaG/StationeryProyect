@@ -15,10 +15,14 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="save">
-                        <div class="text-center mb-4">
+                        <div class="text-center mb-4" wire:ignore>
+                            <div class="form-group">
+                                <img id="preview-image" class="d-block w-25 h-25 mr-auto ml-auto"
+                                    src="{{ asset('storage/' . $image_url) }}" alt="Imagen de producto">
+                            </div>
                             <div class="form-group">
                                 <label for="inputName" class="form-label">Imagen del Producto</label>
-                                <input type="text" wire:model.live="form.image_url"
+                                <input type="file" wire:model.live="image_url" id="image-input"
                                     class="form-control @error('form.image_url') is-invalid @enderror"
                                     placeholder="Agregue una imagen...">
                                 @error('form.image_url')
@@ -47,7 +51,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPrice" class="form-label">Precio del Producto</label>
-                                <input type="text" wire:model.live="form.price"
+                                <input type="number" min="0" step="0.01"  wire:model.live="form.price"
                                     class="form-control @error('form.price') is-invalid @enderror"
                                     placeholder="Agregue un precio...">
                                 @error('form.price')
@@ -56,7 +60,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputStock" class="form-label">Inventario del Producto</label>
-                                <input type="text" wire:model.live="form.stock_quantity"
+                                <input type="number" min="0" wire:model.live="form.stock_quantity"
                                     class="form-control @error('form.stock_quantity') is-invalid @enderror"
                                     placeholder="Agregue un inventario...">
                                 @error('form.stock_quantity')
@@ -104,7 +108,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" wire:click="cancel" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" wire:click="cancel" class="btn btn-secondary"
+                                data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
@@ -120,6 +125,19 @@
         });
         window.addEventListener('hideModal', event => {
             $('#add').modal('hide');
+        });
+
+        document.getElementById('image-input').addEventListener('change', function(event) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview-image').src = e.target.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+
+        window.addEventListener('resetImage', event => {
+            document.getElementById('preview-image').src = event.detail[0].image_url;
+            document.getElementById('image-input').value = null;
         });
     </script>
 @endpush

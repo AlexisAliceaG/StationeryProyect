@@ -16,7 +16,7 @@ class ProductsForm extends Form
     #[Validate('required|max:100', translate: true)]
     public $name = '';
 
-    #[Validate('required|max:100', translate: true)]
+    #[Validate('nullable|image|max:2048', translate: true)]
     public $image_url = '';
 
     #[Validate('required|max:100', translate: true)]
