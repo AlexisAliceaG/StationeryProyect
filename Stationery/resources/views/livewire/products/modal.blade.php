@@ -139,5 +139,8 @@
             document.getElementById('preview-image').src = event.detail[0].image_url;
             document.getElementById('image-input').value = null;
         });
+        window.addEventListener('editImage', event => {
+            document.getElementById('preview-image').src = event.detail[0].image_url;
+        });
     </script>
 @endpush

@@ -9,10 +9,11 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $keyType = 'uuid';
+    protected $keyType = 'string';
     public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'date',
         'total',
     ];

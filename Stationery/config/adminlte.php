@@ -310,6 +310,14 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
+        ['header' => 'Sale'],
+        [
+            'text' => 'Sale',
+            'route' => 'sales.index',
+            'icon' => 'fas fa-cash-register',
+            'label' => 'In work',
+            'label_color' => 'warning',
+        ],
         ['header' => 'Product settings'],
         [
             'text' => 'Products',

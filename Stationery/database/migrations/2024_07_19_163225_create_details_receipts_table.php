@@ -16,7 +16,7 @@ return new class extends Migration
             $table->decimal('quantity', 15, 2)->default(0.0);
             $table->decimal('unit_price', 15, 2)->default(0.0);
             $table->decimal('subtotal', 15, 2)->default(0.0);
-            $table->timestampTz('created_at');
+            $table->timestampsTz();
             $table->uuid('product_id');
             $table->uuid('receipt_id');
 

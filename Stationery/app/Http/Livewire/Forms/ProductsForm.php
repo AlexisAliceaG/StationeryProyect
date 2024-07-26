@@ -16,16 +16,16 @@ class ProductsForm extends Form
     #[Validate('required|max:100', translate: true)]
     public $name = '';
 
-    #[Validate('nullable|image|max:2048', translate: true)]
+    #[Validate('nullable|max:2048', translate: true)]
     public $image_url = '';
 
     #[Validate('required|max:100', translate: true)]
     public $description = '';
 
-    #[Validate('required|int', translate: true)]
+    #[Validate('required|numeric', translate: true)]
     public $price = '';
 
-    #[Validate('required|int', translate: true)]
+    #[Validate('required|numeric', translate: true)]
     public $stock_quantity = '';
 
     #[Validate('required|max:250', translate: true)]
@@ -41,7 +41,8 @@ class ProductsForm extends Form
     {
         $this->product = $product;
         $this->id = $product->id;
-        $this->name = $product->image_url;
+        $this->image_url = $product->image_url;
+        $this->name = $product->name;
         $this->description = $product->description;
         $this->price = $product->price;
         $this->stock_quantity = $product->stock_quantity;

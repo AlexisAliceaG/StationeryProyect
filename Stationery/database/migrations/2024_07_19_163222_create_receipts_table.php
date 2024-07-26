@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('date');
             $table->decimal('total', 15, 2)->default(0.0);
             $table->timestampTz('created_at');
+            $table->timestampTz('updated_at');
             $table->uuid('supplier_id');
 
             $table->foreign('supplier_id')->references('id')->on('suppliers');
