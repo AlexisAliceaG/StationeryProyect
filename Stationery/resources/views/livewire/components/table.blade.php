@@ -1,4 +1,4 @@
-<div>
+<div class="table-responsive">
     <div class="col-12">
         <x-adminlte-input wire:model.live="search" name="search" placeholder="search" igroup-size="md"
             fgroup-class="col-12 col-md-6 mr-2 ml-auto">

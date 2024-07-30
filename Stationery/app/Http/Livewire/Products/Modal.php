@@ -36,6 +36,7 @@ class Modal extends Component
 
     public function editProduct($id): void
     {
+        $this->ProductId = $id;
         $this->form->setProduct(Product::findOrFail($id));
         $this->image_url = $this->form->image_url;
         $this->dispatch('editImage', ['image_url' => asset('storage/'.$this->form->image_url)]);
@@ -44,9 +45,14 @@ class Modal extends Component
 
     public function deleteProduct($id): void
     {
-        Product::findOrFail($id)->delete();
-        $this->dispatch('RefreshCard');
+        $this->ProductId = $id;        
+        $this->dispatch('addDelete');
+    }
 
+    public function deleteConfirm(): void
+    {
+        Product::findOrFail($ProductId)->delete();
+        $this->dispatch('RefreshTable');
     }
 
     public function save(): void
@@ -57,6 +63,12 @@ class Modal extends Component
         $this->form->save();
         $this->dispatch('RefreshCard');
         $this->dispatch('hideModal');
+        if($this->ProductId){
+            $this->dispatch('EditSuccess');
+        }else{
+            $this->dispatch('addSuccess');            
+        }
+        $this->ProductId = null;
     }
 
     public function cancel(): void

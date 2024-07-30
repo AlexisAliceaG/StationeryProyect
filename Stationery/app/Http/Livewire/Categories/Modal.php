@@ -20,7 +20,7 @@ class Modal extends Component
     }
     public function editCategorie($id): void
     {
-        $this->CategorieId = $id;
+        $this->categorieId = $id;
         $this->form->setCategorie(Categorie::findOrFail($id));
         $this->dispatch('showModal');
     }
@@ -28,9 +28,13 @@ class Modal extends Component
     public function deleteCategorie($id): void
     {
         $this->categorieId = $id;
+        $this->dispatch('addDelete');
+    }
+
+    public function deleteConfirm(): void
+    {
         Categorie::findOrFail($this->categorieId)->delete();
         $this->dispatch('RefreshTable');
-
     }
 
     public function save(): void
@@ -38,6 +42,12 @@ class Modal extends Component
         $this->form->save();
         $this->dispatch('RefreshTable');
         $this->dispatch('hideModal');
+        if($this->categorieId){
+            $this->dispatch('EditSuccess');
+        }else{
+            $this->dispatch('addSuccess');            
+        }
+        $this->categorieId = null;
     }
 
     public function cancel(): void

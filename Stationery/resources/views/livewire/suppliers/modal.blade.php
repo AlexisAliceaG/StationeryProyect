@@ -81,5 +81,14 @@
         window.addEventListener('hideModal', event => {
             $('#add').modal('toggle');
         });
+        window.addEventListener('addDelete', event => {
+            DeleteToast.fire({})
+                .then((result) => {
+                    if (result.value) {
+                        @this.call('deleteConfirm');
+                        DeleteConfirmToast.fire({})
+                    }
+                });
+        });
     </script>
 @endpush

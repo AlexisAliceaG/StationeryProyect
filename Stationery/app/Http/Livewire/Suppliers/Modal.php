@@ -27,9 +27,13 @@ class Modal extends Component
     public function deleteSupplier($id): void
     {
         $this->supplierId = $id;
+        $this->dispatch('addDelete');
+    }
+
+    public function deleteConfirm(): void
+    {
         Supplier::findOrFail($this->supplierId)->delete();
         $this->dispatch('RefreshTable');
-
     }
 
     public function save(): void
@@ -37,6 +41,12 @@ class Modal extends Component
         $this->form->save();
         $this->dispatch('RefreshTable');
         $this->dispatch('hideModal');
+        if($this->supplierId){
+            $this->dispatch('EditSuccess');
+        }else{
+            $this->dispatch('addSuccess');            
+        }
+        $this->supplierId = null;
     }
 
     public function cancel(): void

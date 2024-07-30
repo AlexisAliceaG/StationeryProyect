@@ -142,5 +142,15 @@
         window.addEventListener('editImage', event => {
             document.getElementById('preview-image').src = event.detail[0].image_url;
         });
+        
+        window.addEventListener('addDelete', event => {
+            DeleteToast.fire({})
+                .then((result) => {
+                    if (result.value) {
+                        @this.call('deleteConfirm');
+                        DeleteConfirmToast.fire({})
+                    }
+                });
+        });
     </script>
 @endpush

@@ -26,10 +26,14 @@ class Modal extends Component
 
     public function deleteState($id): void
     {
-        $this->stateId = $id;
+        $this->stateId = $id;        
+        $this->dispatch('addDelete');
+    }
+    
+    public function deleteConfirm(): void
+    {
         State::findOrFail($this->stateId)->delete();
         $this->dispatch('RefreshTable');
-
     }
 
     public function save(): void
@@ -37,6 +41,12 @@ class Modal extends Component
         $this->form->save();
         $this->dispatch('RefreshTable');
         $this->dispatch('hideModal');
+        if($this->stateId){
+            $this->dispatch('EditSuccess');
+        }else{
+            $this->dispatch('addSuccess');            
+        }
+        $this->stateId = null;
     }
 
     public function cancel(): void

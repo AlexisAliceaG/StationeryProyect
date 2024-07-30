@@ -14,7 +14,7 @@ class CreateSale extends Component
 {
     public $products;
     public $selectedProduct = null;
-    public $productQuantities = [];
+    public $productQuantities = null;
     public $quantities = [];
     public $total = 0;
 
@@ -38,13 +38,18 @@ class CreateSale extends Component
 
     public function addProduct()
     {
+        $this->validate([
+            'selectedProduct' => 'required|exists:products,id',
+            'productQuantities' => 'required|numeric|min:1',
+        ]);
+
         $this->quantities[] = [
             'productId' => $this->selectedProduct,
             'quantity' => $this->productQuantities
         ];
         $this->calculateTotal();
         $this->selectedProduct = null;
-        $this->productQuantities = 0;
+        $this->productQuantities = null;
     }
 
     public function saveSale()
@@ -55,7 +60,7 @@ class CreateSale extends Component
             ]);
 
             $saleId = Str::uuid();
-            $saleDate = Carbon::now(); // Obtener la fecha y hora actuales
+            $saleDate = Carbon::now();
 
             DB::transaction(function () use ($saleId, $saleDate) {
                 $sale = Sale::create([
@@ -80,13 +85,20 @@ class CreateSale extends Component
                     }
                 }
             });
-
+            $this->dispatch('confirmSuccess');            
             $this->selectedProduct = null;
-            $this->productQuantities = 0;
+            $this->productQuantities = null;
             $this->quantities = [];
             $this->total = 0;
-            session()->flash('message', 'Venta registrada con éxito.');
         }
+    }
+    public function cancel()
+    {
+        $this->selectedProduct = null;
+        $this->productQuantities = null;
+        $this->quantities = [];
+        $this->total = 0;
+        $this->dispatch('CancelSale');            
     }
 
     public function render()

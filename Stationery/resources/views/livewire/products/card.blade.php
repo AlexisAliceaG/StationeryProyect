@@ -20,11 +20,11 @@
                             {{ $row->stock_quantity }} piezas</p>
                         <div class="row">
                             <div class="col-9">
-                                <x-adminlte-button name="Edit" class="m-2 bg-primary" icon="fas fa-edit"
+                                <x-adminlte-button name="Edit" class="m-2 bg-primary rounded-circle" icon="fas fa-pencil-alt"
                                     wire:click="edit('{{ $row->id }}')" />
                             </div>
                             <div class="col-3">
-                                <x-adminlte-button name="Delete" class="m-2 bg-primary" icon="fas fa-trash"
+                                <x-adminlte-button name="Delete" class="m-2 bg-primary rounded-circle" icon="fas fa-trash"
                                     wire:click="delete('{{ $row->id }}')" />
                             </div>
                         </div>
