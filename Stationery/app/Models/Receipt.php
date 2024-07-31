@@ -13,6 +13,7 @@ class Receipt extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'date',
         'total',
         'supplier_id',

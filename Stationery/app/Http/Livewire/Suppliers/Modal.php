@@ -10,12 +10,11 @@ class Modal extends Component
 {
     public SupplierForm $form;
     public $supplierId;
-    protected $listeners = ['editSupplier','deleteSupplier'];
+    protected $listeners = ['editSupplier', 'deleteSupplier'];
     public function mount()
     {
         $supplierId = null;
         $this->form->setSupplier(new Supplier());
-
     }
     public function editSupplier($id): void
     {
@@ -41,18 +40,18 @@ class Modal extends Component
         $this->form->save();
         $this->dispatch('RefreshTable');
         $this->dispatch('hideModal');
-        if($this->supplierId){
+        if ($this->supplierId) {
             $this->dispatch('EditSuccess');
-        }else{
-            $this->dispatch('addSuccess');            
+        } else {
+            $this->dispatch('addSuccess');
         }
         $this->supplierId = null;
     }
 
     public function cancel(): void
-	{
-        $this->form->cancel(); 
-	}
+    {
+        $this->form->cancel();
+    }
     public function render()
     {
         return view('livewire.suppliers.modal');

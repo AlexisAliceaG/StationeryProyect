@@ -10,13 +10,12 @@ class Modal extends Component
 {
     public CategorieForm $form;
     public $categorieId;
-    protected $listeners = ['editCategorie','deleteCategorie'];
+    protected $listeners = ['editCategorie', 'deleteCategorie'];
 
     public function mount()
     {
         $categorieId = null;
         $this->form->setCategorie(new Categorie());
-
     }
     public function editCategorie($id): void
     {
@@ -42,18 +41,18 @@ class Modal extends Component
         $this->form->save();
         $this->dispatch('RefreshTable');
         $this->dispatch('hideModal');
-        if($this->categorieId){
+        if ($this->categorieId) {
             $this->dispatch('EditSuccess');
-        }else{
-            $this->dispatch('addSuccess');            
+        } else {
+            $this->dispatch('addSuccess');
         }
         $this->categorieId = null;
     }
 
     public function cancel(): void
-	{
-        $this->form->cancel(); 
-	}
+    {
+        $this->form->cancel();
+    }
     public function render()
     {
         return view('livewire.categories.modal');

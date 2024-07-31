@@ -5,6 +5,7 @@ use App\Http\Controllers\State\StateController;
 use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Sale\SaleController;
+use App\Http\Controllers\Receipt\ReceiptController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -22,11 +23,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('dashboard')->group(function() {
+Route::prefix('dashboard')->group(function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
     Route::get('/state', [StateController::class, 'index'])->name('state.index');
     Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
     Route::get('/categorie', [CategoriesController::class, 'index'])->name('categories.index');
     Route::get('/sale', [SaleController::class, 'index'])->name('sales.index');
+    Route::get('/receipt', [ReceiptController::class, 'index'])->name('receipt.index');
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

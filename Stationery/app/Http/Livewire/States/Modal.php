@@ -10,12 +10,11 @@ class Modal extends Component
 {
     public StateForm $form;
     public $stateId;
-    protected $listeners = ['editState','deleteState'];
+    protected $listeners = ['editState', 'deleteState'];
     public function mount()
     {
         $stateId = null;
         $this->form->setState(new State());
-
     }
     public function editState($id): void
     {
@@ -26,10 +25,10 @@ class Modal extends Component
 
     public function deleteState($id): void
     {
-        $this->stateId = $id;        
+        $this->stateId = $id;
         $this->dispatch('addDelete');
     }
-    
+
     public function deleteConfirm(): void
     {
         State::findOrFail($this->stateId)->delete();
@@ -41,18 +40,18 @@ class Modal extends Component
         $this->form->save();
         $this->dispatch('RefreshTable');
         $this->dispatch('hideModal');
-        if($this->stateId){
+        if ($this->stateId) {
             $this->dispatch('EditSuccess');
-        }else{
-            $this->dispatch('addSuccess');            
+        } else {
+            $this->dispatch('addSuccess');
         }
         $this->stateId = null;
     }
 
     public function cancel(): void
-	{
-        $this->form->cancel(); 
-	}
+    {
+        $this->form->cancel();
+    }
 
     public function render()
     {

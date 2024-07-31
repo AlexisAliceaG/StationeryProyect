@@ -44,7 +44,7 @@ class CategorieForm extends Form
         if (empty($properties)) {
             $this->id = '';
             $this->name = '';
-            $this->Categorie = new Categorie();
+            $this->categorie = new Categorie();
         } else {
             foreach ($properties as $property) {
                 $this->{$property} = null;
@@ -52,10 +52,10 @@ class CategorieForm extends Form
         }
     }
 
-    public function cancel() 
+    public function cancel()
     {
         $this->resetErrorBag();
-		$this->resetValidation();
+        $this->resetValidation();
         $this->reset();
     }
 }

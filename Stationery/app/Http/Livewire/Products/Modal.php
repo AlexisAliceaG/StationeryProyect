@@ -21,17 +21,16 @@ class Modal extends Component
     public $supplierData;
     public $image_url;
 
-    protected $listeners = ['editProduct','deleteProduct'];
+    protected $listeners = ['editProduct', 'deleteProduct'];
 
     public function mount()
     {
         $ProductId = null;
-        $this->image_url='uploads/default.png';
+        $this->image_url = 'uploads/default.png';
         $this->categorieData = Categorie::all();
         $this->stateData = State::all();
         $this->supplierData = Supplier::all();
         $this->form->setProduct(new Product());
-
     }
 
     public function editProduct($id): void
@@ -39,43 +38,43 @@ class Modal extends Component
         $this->ProductId = $id;
         $this->form->setProduct(Product::findOrFail($id));
         $this->image_url = $this->form->image_url;
-        $this->dispatch('editImage', ['image_url' => asset('storage/'.$this->form->image_url)]);
+        $this->dispatch('editImage', ['image_url' => asset('storage/' . $this->form->image_url)]);
         $this->dispatch('showModal');
     }
 
     public function deleteProduct($id): void
     {
-        $this->ProductId = $id;        
+        $this->ProductId = $id;
         $this->dispatch('addDelete');
     }
 
     public function deleteConfirm(): void
     {
-        Product::findOrFail($ProductId)->delete();
-        $this->dispatch('RefreshTable');
+        Product::findOrFail($this->ProductId)->delete();
+        $this->dispatch('RefreshCard');
     }
 
     public function save(): void
     {
-        if($this->image_url != 'uploads/default.png' && !Storage::exists('public/' . $this->image_url)){
+        if ($this->image_url != 'uploads/default.png' && !Storage::exists('public/' . $this->image_url)) {
             $this->form->image_url = $this->image_url->store('uploads', 'public');
         }
         $this->form->save();
         $this->dispatch('RefreshCard');
         $this->dispatch('hideModal');
-        if($this->ProductId){
+        if ($this->ProductId) {
             $this->dispatch('EditSuccess');
-        }else{
-            $this->dispatch('addSuccess');            
+        } else {
+            $this->dispatch('addSuccess');
         }
         $this->ProductId = null;
     }
 
     public function cancel(): void
-	{
+    {
         $this->dispatch('resetImage', ['image_url' => asset('storage/uploads/default.png')]);
-        $this->form->cancel(); 
-	}
+        $this->form->cancel();
+    }
 
     public function render()
     {

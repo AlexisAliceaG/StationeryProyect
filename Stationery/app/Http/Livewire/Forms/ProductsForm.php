@@ -101,10 +101,10 @@ class ProductsForm extends Form
         }
     }
 
-    public function cancel() 
+    public function cancel()
     {
         $this->resetErrorBag();
-		$this->resetValidation();
+        $this->resetValidation();
         $this->reset();
     }
 }

@@ -8,9 +8,10 @@ use App\Models\Product;
 class Home extends Component
 {
     public $model;
-    public $methods = ['editProduct','deleteProduct'];
+    public $methods = ['editProduct', 'deleteProduct'];
 
-    public function mount(){
+    public function mount()
+    {
         $this->model = new Product;
     }
     public function render()

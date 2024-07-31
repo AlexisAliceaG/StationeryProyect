@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Http\Livewire\Sales;
+namespace App\Http\Livewire\Receipts;
 
 use Livewire\Component;
 use App\Models\Product;
-use App\Models\Sale;
-use App\Models\DetailsSale;
+use App\Models\Supplier;
+use App\Models\Receipt;
+use App\Models\DetailsReceipt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
-class CreateSale extends Component
+class CreateReceipt extends Component
 {
     public $products;
+    public $suppliers;
     public $selectedProduct = null;
+    public $selectedSupplier = null;
+
     public $productQuantities = null;
     public $quantities = [];
     public $total = 0;
@@ -21,6 +25,7 @@ class CreateSale extends Component
     public function mount()
     {
         $this->products = Product::all();
+        $this->suppliers = Supplier::all();
     }
 
     public function calculateTotal()
@@ -41,14 +46,8 @@ class CreateSale extends Component
         $this->validate([
             'selectedProduct' => 'required|exists:products,id',
             'productQuantities' => 'required|numeric|min:1',
+            'selectedSupplier' => 'required|min:1',
         ]);
-
-        $product = Product::find($this->selectedProduct);
-        if ($product && $this->productQuantities > $product->stock_quantity) {
-            $this->dispatch('stockError');
-            return;
-        }
-
         $this->quantities[] = [
             'productId' => $this->selectedProduct,
             'quantity' => $this->productQuantities
@@ -58,21 +57,23 @@ class CreateSale extends Component
         $this->productQuantities = null;
     }
 
-    public function saveSale()
+    public function saveReceipt()
     {
         if (!empty($this->quantities)) {
             $this->validate([
                 'quantities' => 'required|min:0',
+                'selectedSupplier' => 'required|min:1',
             ]);
 
-            $saleId = Str::uuid();
-            $saleDate = Carbon::now();
+            $receiptId = Str::uuid();
+            $receipDate = Carbon::now();
 
-            DB::transaction(function () use ($saleId, $saleDate) {
-                $sale = Sale::create([
-                    'id' => $saleId,
-                    'date' => $saleDate,
+            DB::transaction(function () use ($receiptId, $receipDate) {
+                $receipt = Receipt::create([
+                    'id' => $receiptId,
+                    'date' => $receipDate,
                     'total' => $this->total,
+                    'supplier_id' => $this->selectedSupplier,
                 ]);
 
                 foreach ($this->quantities as $item) {
@@ -81,20 +82,21 @@ class CreateSale extends Component
                     $product = Product::find($productId);
                     if ($product) {
                         $product->update([
-                            'stock_quantity' => $product->stock_quantity - $quantity
+                            'stock_quantity' => $product->stock_quantity + $quantity
                         ]);
-                        DetailsSale::create([
+                        DetailsReceipt::create([
                             'id' => Str::uuid(),
                             'quantity' => $quantity,
                             'unit_price' => $product->price,
                             'subtotal' => $product->price * $quantity,
-                            'sales_id' => $saleId,
+                            'receipt_id' => $receiptId,
                             'product_id' => $productId,
                         ]);
                     }
                 }
             });
             $this->dispatch('confirmSuccess');
+            $this->selectedSupplier = null;
             $this->selectedProduct = null;
             $this->productQuantities = null;
             $this->quantities = [];
@@ -106,14 +108,14 @@ class CreateSale extends Component
     public function cancel()
     {
         $this->selectedProduct = null;
+        $this->selectedSupplier = null;
         $this->productQuantities = null;
         $this->quantities = [];
         $this->total = 0;
-        $this->dispatch('CancelSale');
+        $this->dispatch('CancelReceipt');
     }
-
     public function render()
     {
-        return view('livewire.sales.create-sale');
+        return view('livewire.receipts.create-receipt');
     }
 }
